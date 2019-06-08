@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class Flight
+    class Flight : IPrintable
     {
         private int _flightNumber;
         private string _city;
@@ -13,9 +13,11 @@ namespace AirlineSystem
         private FlightType _flightType;
         private FlightStatus _flightStatus;
         private DateTime _flightTime;
-        private List<Passenger> _passengers;
+        private Passenger[] _passengers;
+        public Passenger[] GetPassengers() => _passengers;
+        public int GetFlightNumber() => _flightNumber;
         public Flight(int flightNumber, string city, string terminal, string gate, FlightType flightType, FlightStatus flightStatus,
-            DateTime flightTime, List<Passenger> passengers)
+            DateTime flightTime, Passenger[] passengers)
         {
             _flightNumber = flightNumber;
             _city = city;
@@ -30,6 +32,17 @@ namespace AirlineSystem
         public Flight()
         {
 
+        }
+
+        public void Print()
+        {
+            Console.WriteLine($"Flight number: {_flightNumber}\t City: {_city}\t Terminal: {_terminal}\t Flight type: {_flightType}" +
+                $"\nFlight status: {_flightStatus}\t Flight time: {_flightTime}\t");
+        }
+        public void PrintPassenges()
+        {
+            foreach (var passenger in _passengers)
+                passenger.Print();
         }
     }
     public enum FlightType

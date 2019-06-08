@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class Passenger
+    class Passenger: IPrintable
     {
         private string _firstName;
         private string _lastName;
@@ -27,6 +27,12 @@ namespace AirlineSystem
         public Passenger()
         {
 
+        }
+
+        public void Print()
+        {
+            Console.WriteLine($"Passenger name: {_firstName} {_lastName}\t Nationality: {_nationality}\t Passport: {_passport}\t " +
+                $"Birthday: {_birthday}\t Sex: {_sex}");
         }
     }
 }
