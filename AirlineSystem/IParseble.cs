@@ -4,9 +4,8 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    interface IMenuCreate
+    interface IParseble<T>
     {
-        string CreateMenuOptions();
-        Airline StartMenu();
+        T ParseInput();
     }
 }

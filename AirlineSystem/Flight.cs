@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class Flight : IPrintable
+    class Flight : IPrintable, IParseble<Flight>
     {
         private int _flightNumber;
         private string _city;
@@ -12,12 +12,16 @@ namespace AirlineSystem
         private string _gate;
         private FlightType _flightType;
         private FlightStatus _flightStatus;
+        private int _economyTicketPrice;
+        private int _businessTicketPrice;
         private DateTime _flightTime;
         private Passenger[] _passengers;
         public Passenger[] GetPassengers() => _passengers;
+
+        public int GetEconomyPrice() => _economyTicketPrice;
         public int GetFlightNumber() => _flightNumber;
         public Flight(int flightNumber, string city, string terminal, string gate, FlightType flightType, FlightStatus flightStatus,
-            DateTime flightTime, Passenger[] passengers)
+            DateTime flightTime, int economyTicketPrice)
         {
             _flightNumber = flightNumber;
             _city = city;
@@ -26,7 +30,8 @@ namespace AirlineSystem
             _flightType = flightType;
             _flightStatus = flightStatus;
             _flightTime = flightTime;
-            _passengers = passengers;
+            _economyTicketPrice = economyTicketPrice;
+            _passengers = new Passenger[1];
 
         }
         public Flight()
@@ -42,7 +47,63 @@ namespace AirlineSystem
         public void PrintPassenges()
         {
             foreach (var passenger in _passengers)
-                passenger.Print();
+                passenger?.Print();
+        }
+
+        public Flight ParseInput()
+        {
+            Flight flight = null;
+            Console.WriteLine("Enter flight number: ");
+            int number = 0;
+            bool result = int.TryParse(Console.ReadLine(), out number);
+            Console.WriteLine("Enter city: ");
+            var city = Console.ReadLine();
+            Console.WriteLine("Enter terminal: ");
+            var terminal = Console.ReadLine();
+            Console.WriteLine("Enter gate: ");
+            var gate = Console.ReadLine();
+            Console.WriteLine("Enter flight type: ");
+            FlightType type;
+            bool typeResult = Enum.TryParse(Console.ReadLine(), out type);
+            Console.WriteLine("Enter flight status: ");
+            FlightStatus status;
+            bool statusResult = Enum.TryParse(Console.ReadLine(), out status);
+            Console.WriteLine("Enter economy ticket price: ");
+            int price = 0;
+            bool priceResult = int.TryParse(Console.ReadLine(), out price);
+            DateTime flightTime = new DateTime();
+            Console.WriteLine("Enter date: ");
+            try
+            {
+                flightTime = Convert.ToDateTime(Console.ReadLine());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Wrong date format...");
+                return flight;
+            }
+            if (result && typeResult && statusResult && priceResult)
+            {
+                flight = new Flight(number, city, terminal, gate, type, status, flightTime, price);
+                Console.WriteLine("Flight succesfully added!");
+                return flight;
+            }
+            else
+            {
+                Console.WriteLine("Some data was in incorrect format, please try again");
+                return flight;
+            }
+        }
+        public void AddPassenger(Passenger passenger)
+        {
+            if (passenger != null)
+            {
+                var tempPassenger = new Passenger[_passengers.Length + 1];
+                for (int i = 0; i < _passengers.Length; i++)
+                    tempPassenger[i] = _passengers[i];
+                tempPassenger[_passengers.Length] = passenger;
+                _passengers = tempPassenger;
+            }
         }
     }
     public enum FlightType

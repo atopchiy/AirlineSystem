@@ -7,16 +7,22 @@ namespace AirlineSystem
     class Ticket
     {
         private TicketClass _ticketClass;
-        private string _price;
-        public Ticket(TicketClass ticketClass, string price)
+        private int _price;
+        private int _flightNumber;
+        public int GetPrice() => _price;
+               
+
+        public Ticket(TicketClass ticketClass, int price, int flightNumber)
         {
             _ticketClass = ticketClass;
             _price = price;
+            _flightNumber = flightNumber;
         }
         public Ticket()
         {
 
         }
+
     }
     public enum TicketClass
     {
