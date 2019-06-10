@@ -13,7 +13,6 @@ namespace AirlineSystem
         private FlightType _flightType;
         private FlightStatus _flightStatus;
         private int _economyTicketPrice;
-        private int _businessTicketPrice;
         private DateTime _flightTime;
         private Passenger[] _passengers;
         public Passenger[] GetPassengers() => _passengers;
@@ -31,7 +30,7 @@ namespace AirlineSystem
             _flightStatus = flightStatus;
             _flightTime = flightTime;
             _economyTicketPrice = economyTicketPrice;
-            _passengers = new Passenger[1];
+            
 
         }
         public Flight()
@@ -96,6 +95,12 @@ namespace AirlineSystem
         }
         public void AddPassenger(Passenger passenger)
         {
+            if (_passengers == null)
+                if (passenger != null)
+                {
+                    _passengers = new Passenger[] { passenger };
+                    return;
+                }
             if (passenger != null)
             {
                 var tempPassenger = new Passenger[_passengers.Length + 1];

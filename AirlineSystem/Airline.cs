@@ -23,43 +23,67 @@ namespace AirlineSystem
         {
             int count = 0;
             foreach (var flight in _flights)
-                if (flight.GetPassengers().First() == null)
+                if (flight.GetPassengers() == null)
                 {
                     flight.Print();
                     count++;
                 }
             if (count == 0)
                 Console.WriteLine("All flights have passengers..");
+            Console.ReadKey();
         }
         public void PrintFlightsPassengers(int flightNumber)
         {
             foreach (var flight in _flights)
                 if (flight.GetFlightNumber() == flightNumber)
                     flight.PrintPassenges();
+            Console.ReadKey();
         }
         public void PrintEconomTickets(int ticketPrice)
         {
             foreach (var flight in _flights)
                 if (flight.GetEconomyPrice() < ticketPrice)
                     flight.Print();
+            Console.ReadKey();
         }
         public void SearchPassByName(string name)
         {
+            int counter = 0;
             foreach (var passenger in _passengers)
                 if (passenger.GetName().Contains(name))
+                {
                     passenger.Print();
+                    counter++;
+                }
+            if (counter == 0)
+                Console.WriteLine("No passengers found");
+            Console.ReadKey();
         }
         public void SearchPassByFlightNumber(int number)
         {
+            int counter = 0;
             foreach (var flight in _flights)
                 if (flight.GetFlightNumber() == number)
+                {
                     flight.PrintPassenges();
+                    counter++;
+                }
+            if (counter == 0)
+                Console.WriteLine("No passengers found");
+            Console.ReadKey();
         }
         public void SearchPassByPassport(string passport)
         {
+            int counter = 0;
             foreach (var passenger in _passengers)
                 if (passenger.GetPassport().Contains(passport))
+                {
                     passenger.Print();
+                    counter++;
+                }
+            if (counter == 0)
+                Console.WriteLine("No passengers found");
+            Console.ReadKey();
         }
         public void AddFlight(Flight flight)
         {
@@ -71,6 +95,8 @@ namespace AirlineSystem
                 tempFlights[_flights.Length] = flight;
                 _flights = tempFlights;
             }
+            Console.WriteLine("Flight has been added");
+            Console.ReadKey();
         }
         public void AddPassenger(Passenger passenger)
         {
@@ -82,26 +108,36 @@ namespace AirlineSystem
                 tempPassenger[_passengers.Length] = passenger;
                 _passengers = tempPassenger;
             }
+            Console.WriteLine("Passenger has been added");
+            Console.ReadKey();
         }
         public void RemoveFlight(int number)
         {
             _flights = _flights.Where(val => val.GetFlightNumber() != number).ToArray();
+            Console.WriteLine("Flight has been removed!");
+            Console.ReadKey();
         }
         public void EditFlight(int flightNumber, Flight flight)
         {
             for (var i = 0; i < _flights.Length; i++)
                 if (_flights[i].GetFlightNumber() == flightNumber)
                     _flights[i] = flight;
+            Console.WriteLine("Flight has been edited");
+            Console.ReadKey();
         }
         public void EditPassenger(string passport, Passenger passenger)
         {
             for (var i = 0; i < _passengers.Length; i++)
                 if (_passengers[i].GetPassport() == passport)
                     _passengers[i] = passenger;
+            Console.WriteLine("Passenger has been edited");
+            Console.ReadKey();
         }
         public void RemovePassenger(string passport)
         {
             _passengers = _passengers.Where(val => val.GetPassport() != passport).ToArray();
+            Console.WriteLine("Passenger has been removed");
+            Console.ReadKey();
         }
     }
 }

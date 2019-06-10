@@ -30,6 +30,7 @@ namespace AirlineSystem
             Console.WriteLine(CreateMenuOptions());
             while (!exit)
             {
+                var options = CreateMenuOptions();
                 var chosenOption = Console.ReadLine();
                 switch (chosenOption)
                 {
