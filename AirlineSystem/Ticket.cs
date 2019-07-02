@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class Ticket
+    internal class Ticket
     {
         private TicketClass _ticketClass;
         private int _price;
@@ -17,10 +17,6 @@ namespace AirlineSystem
             _ticketClass = ticketClass;
             _price = price;
             _flightNumber = flightNumber;
-        }
-        public Ticket()
-        {
-
         }
 
     }

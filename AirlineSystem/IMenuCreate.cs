@@ -6,7 +6,6 @@ namespace AirlineSystem
 {
     interface IMenuCreate
     {
-        string CreateMenuOptions();
         Airline StartMenu();
     }
 }

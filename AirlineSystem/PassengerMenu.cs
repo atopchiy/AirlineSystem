@@ -4,14 +4,14 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class PassengerMenu : IMenuCreate
+    internal class PassengerMenu : IMenuCreate
     {
-        Airline _airline;
+        private Airline _airline;
         public PassengerMenu(Airline airline)
         {
             _airline = airline;
         }
-        public string CreateMenuOptions()
+        private string CreateMenuOptions()
         {
             var menuOptions = new StringBuilder();
             menuOptions.AppendLine("1.Add new passenger").
@@ -48,16 +48,15 @@ namespace AirlineSystem
                         break;
                     case "4":
                         Console.WriteLine("Enter a passenger's first or last name:  ");
-                        _airline.SearchPassByName(Console.ReadLine());
+                        _airline.SearchPassenger(Console.ReadLine(), "name");
                         break;
                     case "5":
                         Console.WriteLine("Enter a passenger's flight number: ");
-                        int number = int.Parse(Console.ReadLine());
-                        _airline.SearchPassByFlightNumber(number);
+                        _airline.SearchPassenger(Console.ReadLine(), "flightNumber");
                         break;
                     case "6":
                         Console.WriteLine("Enter a passenger's passport: ");
-                       _airline.SearchPassByPassport(Console.ReadLine());
+                       _airline.SearchPassenger(Console.ReadLine(), "passport");
                         break;
                     case "7":
                         exit = true;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class Passenger: IPrintable, IParseble<Passenger>
+    internal class Passenger: IPrintable, IParseble<Passenger>
     {
         private string _firstName;
         private string _lastName;
@@ -14,7 +14,7 @@ namespace AirlineSystem
         private string _sex;
         private Ticket _ticket;
         public string GetName() => _firstName + " " + _lastName;
-        public void SetTicket(Ticket ticket) => _ticket = ticket ?? new Ticket();
+        public void SetTicket(Ticket ticket) => _ticket = ticket ?? new Ticket(TicketClass.Economy, 0, 0);
         public string GetPassport() => _passport;
         public Passenger(string firstName, string lastName, string nationality, string passport, DateTime birthday, string sex)
         {

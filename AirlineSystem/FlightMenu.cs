@@ -4,14 +4,14 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class FlightMenu : IMenuCreate
+    internal class FlightMenu : IMenuCreate
     {
-        Airline _airline;
+        private Airline _airline;
         public FlightMenu(Airline airline)
         {
             _airline = airline;
         }
-        public string CreateMenuOptions()
+        private string CreateMenuOptions()
         {
             var menuOptions = new StringBuilder();
             menuOptions.AppendLine("1.View all flights without passengers").

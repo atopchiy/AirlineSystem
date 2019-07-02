@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class Flight : IPrintable, IParseble<Flight>
+    internal class Flight : IPrintable, IParseble<Flight>
     {
         private int _flightNumber;
         private string _city;

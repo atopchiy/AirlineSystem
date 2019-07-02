@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AirlineSystem
 {
-    class Airline
+    internal class Airline
     {
         private Flight[] _flights;
         private Passenger[] _passengers;
@@ -15,10 +15,7 @@ namespace AirlineSystem
             _flights = flights;
             _passengers = passengers;
         }
-        public Airline()
-        {
-
-        }
+        public Airline() { }
         public void PrintFlightsNoPassenger()
         {
             int count = 0;
@@ -46,7 +43,22 @@ namespace AirlineSystem
                     flight.Print();
             Console.ReadKey();
         }
-        public void SearchPassByName(string name)
+        public void SearchPassenger(string searchParam, string paramType)
+        {
+            switch (paramType)
+            {
+                case "name":
+                    SearchPassByName(searchParam);
+                    break;
+                case "passport":
+                    SearchPassByPassport(searchParam);
+                    break;
+                case "flightNumber":
+                    SearchPassByFlightNumber(int.Parse(searchParam));
+                    break;
+            }
+        }
+        private void SearchPassByName(string name)
         {
             int counter = 0;
             foreach (var passenger in _passengers)
@@ -59,7 +71,7 @@ namespace AirlineSystem
                 Console.WriteLine("No passengers found");
             Console.ReadKey();
         }
-        public void SearchPassByFlightNumber(int number)
+        private void SearchPassByFlightNumber(int number)
         {
             int counter = 0;
             foreach (var flight in _flights)
@@ -72,7 +84,7 @@ namespace AirlineSystem
                 Console.WriteLine("No passengers found");
             Console.ReadKey();
         }
-        public void SearchPassByPassport(string passport)
+        private void SearchPassByPassport(string passport)
         {
             int counter = 0;
             foreach (var passenger in _passengers)
@@ -138,6 +150,18 @@ namespace AirlineSystem
             _passengers = _passengers.Where(val => val.GetPassport() != passport).ToArray();
             Console.WriteLine("Passenger has been removed");
             Console.ReadKey();
+        }
+        public Airline CreateTestDataAirline()
+        {
+            Passenger[] passengers = {new Passenger("Frank", "Blakc", "brazilian", "AAdsafsdgsg", DateTime.Now, "Male")
+                    ,  new Passenger("Tinky", "Winky", "mexican", "wrvsdsd21", DateTime.Now, "Female")};
+            passengers[0].SetTicket(new Ticket(TicketClass.Economy, 1000, 10));
+            passengers[1].SetTicket(new Ticket(TicketClass.Economy, 10000, 20));
+            Flight[] flights = { new Flight(10, "New York", "A", "4", FlightType.Arrival, FlightStatus.GateClosed, DateTime.Now, 100),
+                new Flight(20, "Paris", "B", "4", FlightType.Departure, FlightStatus.CheckIn, DateTime.Now, 60)};
+            flights[0].AddPassenger(passengers[0]);
+            flights[1].AddPassenger(passengers[1]);
+            return new Airline(flights, passengers);
         }
     }
 }
