@@ -8,12 +8,10 @@ namespace AirlineSystem
     internal class Airline
     {
         private Flight[] _flights;
-        private Passenger[] _passengers;
         public Flight[] GetFlights() => _flights;
-        public Airline(Flight [] flights, Passenger [] passengers)
+        public Airline(Flight [] flights)
         {
             _flights = flights;
-            _passengers = passengers;
         }
         public Airline() { }
         public void PrintFlightsNoPassenger()
@@ -61,7 +59,8 @@ namespace AirlineSystem
         private void SearchPassByName(string name)
         {
             int counter = 0;
-            foreach (var passenger in _passengers)
+            foreach(var flight in _flights)
+            foreach (var passenger in flight.GetPassengers())
                 if (passenger.GetName().Contains(name))
                 {
                     passenger.Print();
@@ -87,7 +86,8 @@ namespace AirlineSystem
         private void SearchPassByPassport(string passport)
         {
             int counter = 0;
-            foreach (var passenger in _passengers)
+            foreach (var flight in _flights)
+                foreach (var passenger in flight.GetPassengers())
                 if (passenger.GetPassport().Contains(passport))
                 {
                     passenger.Print();
@@ -110,19 +110,7 @@ namespace AirlineSystem
             Console.WriteLine("Flight has been added");
             Console.ReadKey();
         }
-        public void AddPassenger(Passenger passenger)
-        {
-            if (passenger != null)
-            {
-                var tempPassenger = new Passenger[_passengers.Length + 1];
-                for (int i = 0; i < _passengers.Length; i++)
-                    tempPassenger[i] = _passengers[i];
-                tempPassenger[_passengers.Length] = passenger;
-                _passengers = tempPassenger;
-            }
-            Console.WriteLine("Passenger has been added");
-            Console.ReadKey();
-        }
+       
         public void RemoveFlight(int number)
         {
             _flights = _flights.Where(val => val.GetFlightNumber() != number).ToArray();
@@ -137,20 +125,7 @@ namespace AirlineSystem
             Console.WriteLine("Flight has been edited");
             Console.ReadKey();
         }
-        public void EditPassenger(string passport, Passenger passenger)
-        {
-            for (var i = 0; i < _passengers.Length; i++)
-                if (_passengers[i].GetPassport() == passport)
-                    _passengers[i] = passenger;
-            Console.WriteLine("Passenger has been edited");
-            Console.ReadKey();
-        }
-        public void RemovePassenger(string passport)
-        {
-            _passengers = _passengers.Where(val => val.GetPassport() != passport).ToArray();
-            Console.WriteLine("Passenger has been removed");
-            Console.ReadKey();
-        }
+       
         public Airline CreateTestDataAirline()
         {
             Passenger[] passengers = {new Passenger("Frank", "Blakc", "brazilian", "AAdsafsdgsg", DateTime.Now, "Male")
@@ -161,7 +136,7 @@ namespace AirlineSystem
                 new Flight(20, "Paris", "B", "4", FlightType.Departure, FlightStatus.CheckIn, DateTime.Now, 60)};
             flights[0].AddPassenger(passengers[0]);
             flights[1].AddPassenger(passengers[1]);
-            return new Airline(flights, passengers);
+            return new Airline(flights);
         }
     }
 }

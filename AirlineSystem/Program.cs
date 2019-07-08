@@ -17,12 +17,12 @@ namespace AirlineSystem
                 if (input == "1")
                 {
                     IMenuCreate flightMenu = new FlightMenu(airline);
-                    airline = flightMenu.StartMenu();
+                    flightMenu.StartMenu();
                 }
                 else if(input == "2")
                 {
                     IMenuCreate passengerMenu = new PassengerMenu(airline);
-                    airline = passengerMenu.StartMenu();
+                    passengerMenu.StartMenu();
                 }
                 else if(input == "3")
                 {

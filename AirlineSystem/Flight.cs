@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AirlineSystem
@@ -109,6 +110,20 @@ namespace AirlineSystem
                 tempPassenger[_passengers.Length] = passenger;
                 _passengers = tempPassenger;
             }
+        }
+        public void EditPassenger(string passport, Passenger passenger)
+        {
+            for (var i = 0; i < _passengers.Length; i++)
+                if (_passengers[i].GetPassport() == passport)
+                    _passengers[i] = passenger;
+            Console.WriteLine("Passenger has been edited");
+            Console.ReadKey();
+        }
+        public void RemovePassenger(string passport)
+        {
+            _passengers = _passengers.Where(val => val.GetPassport() != passport).ToArray();
+            Console.WriteLine("Passenger has been removed");
+            Console.ReadKey();
         }
     }
     public enum FlightType
